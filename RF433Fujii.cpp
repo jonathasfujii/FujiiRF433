@@ -1,33 +1,26 @@
 /*
-ARDUINO DECODIFICADOR HT6P20B COM RESISTOR DE 2M2 NO OSC.
-ESTE CÓDIGO NÃO USA TIMER, INTERRUPÇÃO EXTERNA E NEM PINO DEFINIDO DE ENTRADA.
-ELE MEDE O TEMPO DO PILOT PERIOD E COMPARA SE ESTÁ DENTRO DA FAIXA DEFINIDA,
-SE TIVER ELE PASSA PARA CODE PERIOD E FAZ AS MEDIDÇÕES DE TEMPO EM NIVEL ALTO
-SE TIVER DENTRO DA FAIXA ACRECENTA BIT 1 OU 0 NA VARIAVEL _DATA CASO NÃO ZERA AS VARIÁVEIS E RE-INICIA
-APOS RECEBER TODOS OS BITS ELE PEGA OS 4 BITS DO ANTE CODE E TESTA PARA SABER SE O CÓDIGO FOI RECEBIDO
-CORRETAMENTE, CASO RECEBIDO CERTO ELE COLOCA A VARIAVEL ANTCODE EM 1.
+ARDUINO DECODIFICADOR HT6P20B
 
 CRIADO POR: JACQUES DANIEL MORESCO
 DATA: 28/02/2012 USANDO ARDUINO 0022.
 FONES:54 3324 2251 54 9206 7168
 E-MAIL: ibisul@ibisul.com.br
-Permitido o uso público, mas deve-se manter o nome do autor.
-//Segunda modificação Sérgio Navarro Brasil
+Modificado por Sérgio Navarro Brasil
 
-// Adaptado por Jonathas Fujii para funcionar como LIB 03/10/2016
+Adaptado por Jonathas Fujii incluindo para funcionar como LIB e incluida função de emissão 03/10/2016
 
 */
 #include "Arduino.h"
-#include "RF433Fujii.h"
+#include "RF433.h"
 
-RF433Fujii::RF433Fujii(byte pinRx, byte pinTx) {
+RF433::RF433(byte pinRx, byte pinTx) {
   pinMode(pinRx, INPUT);
   pinMode(pinTx, INPUT);
   _pinRx = pinRx;
   _pinTx = pinTx;
 }
 
-boolean RF433Fujii::codigoRecebido() {  
+boolean RF433::codigoRecebido() {  
 	boolean retorno = false;
 	if (startbit==0)
 	 {// Testa o tempo piloto até o Bit de inicio;
@@ -89,11 +82,11 @@ boolean RF433Fujii::codigoRecebido() {
 	return retorno;
 }
 
-unsigned long RF433Fujii::getCodigo(){
+unsigned long RF433::getCodigo(){
 	return _data;
 }
 
-void RF433Fujii::enviarCodigo(long codigo_l){
+void RF433::enviarCodigo(long codigo_l){
   char *codigo;
   decimalToBinary(codigo_l, codigo);
   for (int k=0;k<2;k++){ // esse laço simplesmente repete o envio do código para certificar que será entregue 
@@ -128,7 +121,7 @@ void RF433Fujii::enviarCodigo(long codigo_l){
   Serial.println("dados transmitidos.");
 }
 
-void RF433Fujii::decimalToBinary(long n, char *pointer){
+void RF433::decimalToBinary(long n, char *pointer){
    int tamanho = 28;
    int c, d, count;
    //char *pointer;
