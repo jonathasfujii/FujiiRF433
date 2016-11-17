@@ -8,6 +8,7 @@ E-MAIL: ibisul@ibisul.com.br
 Modificado por Sérgio Navarro Brasil
 
 Adaptado por Jonathas Fujii incluindo para funcionar como LIB e incluida função de emissão 03/10/2016
+E-mial: jonathasfujii@gmail.com
 */
 #ifndef RF433_h
 #define RF433_h
