@@ -1,0 +1,16 @@
+#######################################
+# Syntax Coloring Map For RF433Fujii
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+RF433Fujii KEYWORD1 RF433Fujii
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+codigoRecebido KEYWORD2
+getCodigo KEYWORD2
