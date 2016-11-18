@@ -1,17 +1,4 @@
-#######################################
-# Syntax Coloring Map For RF433
-#######################################
-
-#######################################
-# Datatypes (KEYWORD1)
-#######################################
-
-RF433 KEYWORD1 RF433
-
-#######################################
-# Methods and Functions (KEYWORD2)
-#######################################
-
+RF433 KEYWORD1
 codigoRecebido KEYWORD2
 getCodigo KEYWORD2
 enviarCodigo KEYWORD2
