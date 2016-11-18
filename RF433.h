@@ -33,7 +33,7 @@ class RF433 {
 	//variaveis do emissor
 	int larpulsoEmissor = 476; //define tempo de 1 comprimento de onda em microsegundos
 	unsigned long dados=0;   // SET de 28 bits que identificará o controle. Pode ser alterado como queira, desde que os 4 últimos não mudem
-	void decimalToBinary(long n, char *codigo);
+	String decimalToBinary(long n);
 };
 
 #endif

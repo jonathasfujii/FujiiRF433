@@ -88,19 +88,21 @@ unsigned long RF433::getCodigo(){
 }
 
 void RF433::enviarCodigo(long codigo_l){
-  char *codigo;
-  decimalToBinary(codigo_l, codigo);
-  for (int k=0;k<2;k++){ // esse laço simplesmente repete o envio do código para certificar que será entregue 
+  String codigo;
+  codigo = decimalToBinary(codigo_l);
+  //Serial.print("codigo binário: ");
+  //Serial.println(codigo);
+  //for (int k=0;k<2;k++){ // esse laço simplesmente repete o envio do código para certificar que será entregue 
     
 	// envia o pilot code
-    Serial.println("transmitindo...");
+    //Serial.println("transmitindo...");
     digitalWrite(_pinTx,LOW);
     delayMicroseconds(larpulsoEmissor*23);
     digitalWrite(_pinTx,HIGH);
     delayMicroseconds(larpulsoEmissor); //fim do pilot code
 
     for (int i=0;i<28;i++){
-      Serial.print(bitRead(dados,i),BIN);
+      //Serial.print(bitRead(dados,i),BIN);
       if (codigo[i] == '1') {
         bitWrite(dados, i, 1);
         digitalWrite(_pinTx,LOW);
@@ -116,35 +118,26 @@ void RF433::enviarCodigo(long codigo_l){
         delayMicroseconds(larpulsoEmissor*2);
       }
     }
-  }
+	//delay(100);
+  //}
   digitalWrite(_pinTx,LOW);
-  Serial.println ();
-  Serial.println("dados transmitidos.");
+  //Serial.println("dados transmitidos.");
 }
 
-void RF433::decimalToBinary(long n, char *pointer){
-   int tamanho = 28;
-   int c, d, count;
-   //char *pointer;
- 
-   count = 0;
-   pointer = (char*)malloc(tamanho+1);
- 
-   if ( pointer == NULL )
-      exit(EXIT_FAILURE);
- 
-   for ( c = (tamanho-1) ; c >= 0 ; c-- )
-   {
-      d = n >> c;
- 
-      if ( d & 1 )
-         *(pointer+count) = 1 + '0';
-      else
-         *(pointer+count) = 0 + '0';
- 
-      count++;
-   }
-   *(pointer+count) = '\0';
- 
-   //return  pointer;
+/* Referência https://github.com/CarlOhlsson/Arduino-Number-Converter */
+String RF433::decimalToBinary(long value){
+  String result = "";
+  if(value == 0){
+    return "0";
+  }else{
+    while(value > 0){
+      if((value % 2) == 0){
+        result = "0" + result;
+      }else{
+        result = "1" + result;
+      }
+      value /= 2;
+    }
+  }
+  return result;
 }
