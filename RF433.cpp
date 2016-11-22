@@ -86,13 +86,16 @@ boolean RF433::codigoRecebido() {
 unsigned long RF433::getCodigo(){
 	return _data;
 }
-
+/*
+CRIADO POR: Renzo Patrick de Lima Ribeiro
+DATA: 10/05/2012 CONTATO: 67 8401-8006 E-MAIL: renzo@oi.net.br
+*/
 void RF433::enviarCodigo(long codigo_l){
   String codigo;
   codigo = decimalToBinary(codigo_l);
   //Serial.print("codigo binário: ");
   //Serial.println(codigo);
-  //for (int k=0;k<2;k++){ // esse laço simplesmente repete o envio do código para certificar que será entregue 
+  for (int k=0;k<2;k++){ // esse laço simplesmente repete o envio do código para certificar que será entregue 
     
 	// envia o pilot code
     //Serial.println("transmitindo...");
@@ -118,13 +121,13 @@ void RF433::enviarCodigo(long codigo_l){
         delayMicroseconds(larpulsoEmissor*2);
       }
     }
-	//delay(100);
-  //}
+	delay(100);
+  }
   digitalWrite(_pinTx,LOW);
   //Serial.println("dados transmitidos.");
 }
 
-/* Referência https://github.com/CarlOhlsson/Arduino-Number-Converter */
+/* Referência: https://github.com/CarlOhlsson/Arduino-Number-Converter */
 String RF433::decimalToBinary(long value){
   String result = "";
   if(value == 0){
